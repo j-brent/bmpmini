@@ -16,6 +16,7 @@ modification, are permitted provided that the following conditions are met:
 */
 #include <vector>
 #include <fstream>
+#include <cstdint>
 
 namespace image {
 #pragma pack(push, 1)
@@ -116,7 +117,10 @@ namespace image {
 			header.bit_per_pixel = rawImage.channels * 8;
 			int padded_row_size = paddedRowSize();
 			header.image_size = header.height * padded_row_size;
-			header.offset_data = sizeof(header) + sizeof(ColorPalette);
+			if (is8bit())
+                        	header.offset_data = sizeof(header) + sizeof(ColorPalette);
+                        else
+                        	header.offset_data = sizeof(header);
 			header.file_size = header.offset_data + header.image_size;
 			pixel_data.resize(rawImage.width * rawImage.height * rawImage.channels);
 			std::copy(rawImage.data, rawImage.data + pixel_data.size(), pixel_data.begin());
