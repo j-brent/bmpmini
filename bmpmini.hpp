@@ -16,6 +16,7 @@ modification, are permitted provided that the following conditions are met:
 */
 #include <vector>
 #include <fstream>
+#include <cstdint>
 
 namespace image {
 #pragma pack(push, 1)
